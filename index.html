@@ -38,6 +38,25 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+    .navbar ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: flex-end; /* Align items to the right */
+      align-items: center;
+  }
+  
+  .navbar ul li {
+      margin-left: 20px; /* Adjust spacing between menu items */
+  }
+  
+  #userProfile {
+      margin-left: auto; /* Pushes the "Logout" button to the right */
+  }
+  
+  </style>
   
 </head>
 
@@ -83,13 +102,12 @@
           </li>
         
 
-         <li><a href="app.html" id="loginLink">Register/Login</a></li>
-         <li id="userProfile" style="display: none;">
-          <span id="usernameDisplay"></span>
-          <button onclick="logout()">Logout</button>
-          </li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
+          <li><a href="app.html" id="loginLink">Register/Login</a></li>
+          <li id="userProfile" style="display: none; margin-right: 10px;">
+           <button onclick="logout()">Logout</button>
+       </li>
+         </ul>
+         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
     </div>
@@ -422,6 +440,30 @@
     if (username) {
         console.log("User is logged in");
         usernameDisplay.textContent = `Hello, ${username}`;
+        userProfile.style.display = 'block';
+        loginLink.style.display = 'none';
+    } else {
+        console.log("No user logged in");
+        userProfile.style.display = 'none';
+        loginLink.style.display = 'block';
+    }
+});
+
+function logout() {
+    sessionStorage.clear(); // Clears all session storage including user data
+    window.location.reload(); // Refresh the page to reflect changes
+}
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    console.log("Document loaded");
+    const username = sessionStorage.getItem('username');
+    console.log("Username from session:", username);
+    const loginLink = document.getElementById('loginLink');
+    const userProfile = document.getElementById('userProfile');
+
+    if (username) {
+        console.log("User is logged in");
         userProfile.style.display = 'block';
         loginLink.style.display = 'none';
     } else {
